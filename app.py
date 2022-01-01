@@ -7,14 +7,6 @@ from bisect import bisect_left
 from flask.wrappers import Response
 
 
-# 4, 5-6, 7
-NUM_OF_CARDS = [
-    # (3, ),
-    (4, 3),
-    (6, 4),
-    (7, 5),
-]
-
 app = Flask(__name__, static_url_path='/public')
 cards = []
 shuffled = False
@@ -38,9 +30,17 @@ def get_index():
     if 'num' in request.args:
         num = int(request.args['num'])
     if num < 4:
-        return abort(Response('Number of player must greater than 4'), 500)
-    ind = bisect_left(NUM_OF_CARDS, (num,))
-    return render_template('index.html', state='planning', num=NUM_OF_CARDS[ind][1])
+        return abort(Response('Number of player must be greater than 4'), 500)
+    elif num < 5:
+        role_num = 3
+    elif num < 7:
+        role_num = 4
+    elif num > 8:
+        return abort(Response('Number of player must be lesser than 8'), 500)
+    else:
+        role_num = 5
+    
+    return render_template('index.html', state='planning', num=role_num)
 
 @app.route('/sub')
 def submit_card():
