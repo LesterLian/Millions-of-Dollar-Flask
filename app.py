@@ -3,6 +3,7 @@ from xml.etree.ElementTree import tostring, parse as parse_xml, Element, SubElem
 
 from random import shuffle
 from bisect import bisect_left
+import secret, hashlib, hmac, threading, time, os
 
 from flask.wrappers import Response
 
@@ -76,3 +77,23 @@ def reset_game():
     shuffled = False
     
     return redirect(f'index?num={num}')
+
+@app.route('/hook', methods=['POST'])
+def webhook():
+    # X-Hub-Signature-256: sha256=<hash>
+    sig_header = 'X-Hub-Signature-256'
+    if sig_header not in request.headers:
+        return ''
+    header_splitted = request.headers[sig_header].split("=")
+    if len(header_splitted) != 2:
+        return ''
+    req_sign = header_splitted[1]
+    computed_sign = hmac.new(secret.webhook, request.data, hashlib.sha256).hexdigest()
+    # is the provided signature ok?
+    if not hmac.compare_digest(req_sign, computed_sign):
+        return ''
+    # create a thread to return a response (so GitHub is happy) and start a 2s timer before exiting this app
+    # this is supposed to be run by systemd unit which will restart it automatically
+    # the [] syntax for lambda allows to have 2 statements
+    threading.Thread(target=lambda: [print("Exit called", flush=True), time.sleep(2), os._exit(-1)]).start()
+    return "ok"
