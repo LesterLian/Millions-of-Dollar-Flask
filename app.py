@@ -7,7 +7,7 @@ import secret, hashlib, hmac, threading, time, os
 
 
 app = Flask(__name__, static_url_path='/public')
-app.config['BABEL_DEFAULT_LOCALE'] = 'cn'
+app.config['BABEL_DEFAULT_LOCALE'] = 'zh'
 babel = Babel(app)
 
 ROLES = [
