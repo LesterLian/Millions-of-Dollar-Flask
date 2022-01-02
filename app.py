@@ -1,6 +1,6 @@
 from flask import Flask, abort, json, send_from_directory, redirect, url_for, render_template, make_response, request
 from flask.wrappers import Response
-from flask_babel import Babel, _
+from flask_babel import Babel, _, lazy_gettext as _l
 
 from random import shuffle
 import secret, hashlib, hmac, threading, time, os
@@ -10,13 +10,14 @@ app = Flask(__name__, static_url_path='/public')
 app.config['BABEL_DEFAULT_LOCALE'] = 'zh'
 babel = Babel(app)
 
-ROLES = [
-    ('brute', _('Brute')),
-    ('crook', _('Crook')),
-    ('driver', _('Driver')),
-    ('snitch', _('Snitch')),
-    ('mastermind', _('Mastermind'))
-]
+ROLES = {
+    'brute': _l('Brute'),
+    'crook': _l('Crook'),
+    'driver': _l('Driver'),
+    'snitch': _l('Snitch'),
+    'mastermind': _l('Mastermind'),
+    'unknown': _l('Unknown')
+}
 cards = []
 shuffled = False
 num = 4
@@ -49,7 +50,7 @@ def get_index():
     else:
         role_num = 5
     
-    return render_template('index.html', state='planning', roles=ROLES[:role_num])
+    return render_template('index.html', state='planning', roles=list(ROLES.items())[:role_num])
 
 @app.route('/sub')
 def submit_card():
@@ -67,15 +68,16 @@ def show_cards():
         shuffle(cards)
         shuffled = True
         old_cards = cards.copy()
-        
+    tmp = [(role, ROLES[role]) for role in ['unknown'] + cards[1:]]
+    print(tmp)
     
-    return render_template('index.html', state='negotiation', cards=cards[1:])
+    return render_template('index.html', state='negotiation', cards=tmp)
 
 @app.route('/all')
 def show_all():
     global old_cards
     
-    return render_template('index.html', state='loot', cards=old_cards)
+    return render_template('index.html', state='loot', cards=[(role, ROLES[role]) for role in old_cards])
 
 @app.route('/reset')
 def reset_game():

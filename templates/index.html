@@ -65,7 +65,7 @@
     {% if state == 'planning' %}
     <div id="cards_wrapper">
     {% for role, name in roles %}
-        <div><a href="sub?card={{role}}"><img src='images/{{role}}.png' alt="{{ name }}"></a></div>
+        <div><a href="sub?card={{role}}"><img src='images/{{role}}.png' alt="{{ name }}" title="{{ name }}"></a></div>
     {% endfor %}
     </div>
     {% endif %}
@@ -81,20 +81,11 @@
     </div>
     {% endif %}
     {% if state == 'negotiation' %}
-    <div id="cards_wrapper">
-        <div><img src='images/unknown.png' alt='Unknown'></div>
-        {% for card in cards %}
-            <div><img src='images/{{ card }}.png' alt='{{ _(card.capitalize()) }}'></div>
-        {% endfor %}
-    </div>
+    {% include 'cards.html' %}
     <a href='all' class="button"><h1>{{ _('Show All') }}</h1></a>
     {% endif %}
     {% if state == 'loot' %}
-    <div id="cards_wrapper">
-        {% for card in cards %}
-            <div><img src='images/{{ card }}.png' alt='{{ _(card.capitalize()) }}'></div>
-        {% endfor %}
-    </div>
+    {% include 'cards.html' %}
     <a href='reset' class="button"><h1>{{ _('Reset') }}</h1></a>
     {% endif %}
 </body>

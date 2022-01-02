@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-01 23:45-0500\n"
+"POT-Creation-Date: 2022-01-02 16:00-0500\n"
 "PO-Revision-Date: 2022-01-01 22:58-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -38,15 +38,19 @@ msgstr "内鬼"
 msgid "Mastermind"
 msgstr "谋士"
 
-#: app.py:42
+#: app.py:19
+msgid "Unknown"
+msgstr "未知"
+
+#: app.py:43
 msgid "Number of player must be greater than 4"
 msgstr "玩家数量必须小于4"
 
-#: app.py:48
+#: app.py:49
 msgid "Number of player must be lesser than 8"
 msgstr "玩家数量必须大于8"
 
-#: app.py:65
+#: app.py:66
 msgid "Waiting others..."
 msgstr "等待其它玩家……"
 
@@ -54,11 +58,11 @@ msgstr "等待其它玩家……"
 msgid "Submit Success!"
 msgstr "提交成功！"
 
-#: templates/index.html:90
+#: templates/index.html:85
 msgid "Show All"
 msgstr "显示全部"
 
-#: templates/index.html:98
+#: templates/index.html:89
 msgid "Reset"
 msgstr "重置"
 
