@@ -81,12 +81,12 @@ def show_all():
 
 @app.route('/reset')
 def reset_game():
-    global shuffled, cards, num
+    global shuffled, cards
 
     cards.clear()
     shuffled = False
     
-    return redirect(f'index?num={num}')
+    return redirect(f'index')
 
 @app.route('/hook', methods=['POST'])
 def webhook():
