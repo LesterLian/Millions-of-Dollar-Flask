@@ -1,14 +1,22 @@
 from flask import Flask, abort, json, send_from_directory, redirect, url_for, render_template, make_response, request
-from xml.etree.ElementTree import tostring, parse as parse_xml, Element, SubElement
+from flask.wrappers import Response
+from flask_babel import Babel, _
 
 from random import shuffle
-from bisect import bisect_left
 import secret, hashlib, hmac, threading, time, os
-
-from flask.wrappers import Response
 
 
 app = Flask(__name__, static_url_path='/public')
+app.config['BABEL_DEFAULT_LOCALE'] = 'cn'
+babel = Babel(app)
+
+ROLES = [
+    ('brute', _('Brute')),
+    ('crook', _('Crook')),
+    ('driver', _('Driver')),
+    ('snitch', _('Snitch')),
+    ('mastermind', _('Mastermind'))
+]
 cards = []
 shuffled = False
 num = 4
@@ -31,30 +39,30 @@ def get_index():
     if 'num' in request.args:
         num = int(request.args['num'])
     if num < 4:
-        return abort(Response('Number of player must be greater than 4'), 500)
+        return abort(Response(_('Number of player must be greater than 4')), 500)
     elif num < 5:
         role_num = 3
     elif num < 7:
         role_num = 4
     elif num > 8:
-        return abort(Response('Number of player must be lesser than 8'), 500)
+        return abort(Response(_('Number of player must be lesser than 8')), 500)
     else:
         role_num = 5
     
-    return render_template('index.html', state='planning', num=role_num)
+    return render_template('index.html', state='planning', roles=ROLES[:role_num])
 
 @app.route('/sub')
 def submit_card():
     cards.append(request.args['card'])
     
-    return render_template('index.html', state='planning', num=0), {"Refresh": f"1; url=show"}
+    return render_template('index.html', state='planning', roles=[]), {"Refresh": f"1; url=show"}
 
 @app.route('/show')
 def show_cards():
     global shuffled, num, old_cards
 
     if len(cards) < num:
-        return 'Wait', {"Refresh": f"1; url=show"}
+        return _('Waiting others...'), {"Refresh": f"1; url=show"}
     if not shuffled:
         shuffle(cards)
         shuffled = True
