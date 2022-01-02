@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-02 16:00-0500\n"
+"POT-Creation-Date: 2022-01-02 16:22-0500\n"
 "PO-Revision-Date: 2022-01-01 22:58-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -50,13 +50,17 @@ msgstr "玩家数量必须小于4"
 msgid "Number of player must be lesser than 8"
 msgstr "玩家数量必须大于8"
 
-#: app.py:66
+#: app.py:60
+msgid "Success! You have submitted your role!"
+msgstr "提交成功！你已选择职业！"
+
+#: app.py:62
+msgid "Error! Role number exceeded!"
+msgstr "提交错误！超过规定职业数量！"
+
+#: app.py:71
 msgid "Waiting others..."
 msgstr "等待其它玩家……"
-
-#: templates/index.html:79
-msgid "Submit Success!"
-msgstr "提交成功！"
 
 #: templates/index.html:85
 msgid "Show All"
@@ -65,4 +69,10 @@ msgstr "显示全部"
 #: templates/index.html:89
 msgid "Reset"
 msgstr "重置"
+
+#~ msgid "Submit Success!"
+#~ msgstr "提交成功！"
+
+#~ msgid "Failure! Role number exceeded!"
+#~ msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-02 16:00-0500\n"
+"POT-Creation-Date: 2022-01-02 16:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,12 +49,16 @@ msgstr ""
 msgid "Number of player must be lesser than 8"
 msgstr ""
 
-#: app.py:66
-msgid "Waiting others..."
+#: app.py:60
+msgid "Success! You have submitted your role!"
 msgstr ""
 
-#: templates/index.html:79
-msgid "Submit Success!"
+#: app.py:62
+msgid "Error! Role number exceeded!"
+msgstr ""
+
+#: app.py:71
+msgid "Waiting others..."
 msgstr ""
 
 #: templates/index.html:85

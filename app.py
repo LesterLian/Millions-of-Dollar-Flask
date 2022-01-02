@@ -54,9 +54,14 @@ def get_index():
 
 @app.route('/sub')
 def submit_card():
-    cards.append(request.args['card'])
+
+    if len(cards) < num:
+        cards.append(request.args['card'])
+        message = _('Success! You have submitted your role!')
+    else:
+        message = _('Error! Role number exceeded!')
     
-    return render_template('index.html', state='planning', roles=[]), {"Refresh": f"1; url=show"}
+    return render_template('index.html', state='submitted', message=message), {"Refresh": f"1; url=show"}
 
 @app.route('/show')
 def show_cards():
